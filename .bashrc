@@ -18,7 +18,7 @@ alias gl="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Cres
 # Standard ls alises
 alias ls='ls -G'
 alias ll='ls -l'
-alias la='ls -la'
+alias la='ls -lA'
 
 # Other alises
 alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
