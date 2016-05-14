@@ -2,8 +2,8 @@
 export BYOBU_PREFIX=$(brew --prefix)
 
 # SSH alises
-alias rpi="ssh -i .ssh/endemoniada nathaniel@rpi"
-alias mm="ssh -i .ssh/endemoniada martin@macmini"
+alias rpi="ssh -i ~/.ssh/endemoniada nathaniel@rpi"
+alias mm="ssh -i ~/.ssh/endemoniada martin@macmini"
 
 # Git
 # You must install Git first - ""
