@@ -25,6 +25,11 @@ ENV_ALIAS="env_alias"
 ENV_FUJITSU="env_fujitsu"
 
 
+# Import aliases. Copy these to .bashrc to enable nonlogin shells
+[ -r ~/$ENV_ALIAS ] && source ~/$ENV_ALIAS
+[ -f ~/$ENV_FUJITSU ] && source ~/$ENV_FUJITSU
+
+
 # Scripts and variables for various applications installed through homebrew
 if [ $(which brew) ]; then
     # Git Bash completion
@@ -62,8 +67,3 @@ else
         # Green user prompt
         export PS1='\[$(tput sgr0)\]\[\033[38;5;3m\]\A\[$(tput sgr0)\] \[\033[38;5;10m\]\u'"$ssh"' \[$(tput sgr0)\]\w\[\e[1m\]\[\033[38;5;254m\]'"$bashgitprompt"'\[$(tput sgr0)\] \$ '
 fi
-
-
-# Import aliases. Copy these to .bashrc to enable nonlogin shells
-[ -r ~/$ENV_ALIAS ] && source ~/$ENV_ALIAS
-[ -f ~/$ENV_FUJITSU ] && source ~/$ENV_FUJITSU
