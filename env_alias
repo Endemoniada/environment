@@ -1,6 +1,3 @@
-# Byobu configuration
-export BYOBU_PREFIX=$(brew --prefix)
-
 # SSH alises
 alias rpi="ssh -i ~/.ssh/endemoniada nathaniel@rpi"
 alias mm="ssh -i ~/.ssh/endemoniada martin@macmini"
@@ -22,5 +19,3 @@ alias la='ls -lA'
 
 # Other alises
 alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
-
-[ -f ~/.bashrc-fujitsu ] && . ~/.bashrc-fujitsu
