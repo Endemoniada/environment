@@ -3,12 +3,12 @@ Just my own bash scripts, tmux configs and other stuff
 
 ## Files
 
-### .bash_profile
+### .env_login
 interactive login script, sets advanced prompt with git and python virtualenv expansion.
 Put all heavy scripts and more complicated user-oriented stuff here.
-Loads .bashrc at the end.
+Loads env_alias at the end.
 
-### .bashrc
+### .env_alias
 interactive/non-interactive non-login script, sets some common aliases.
 Put anything necessary for non-interactive shell scripts and other things here, like important environment variables.
 
