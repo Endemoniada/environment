@@ -23,3 +23,4 @@ alias la='ls -lA'
 # Other alises
 alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
 
+[ -f ~/.bashrc-fujitsu ] && . ~/.bashrc-fujitsu

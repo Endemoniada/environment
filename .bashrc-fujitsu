@@ -1,0 +1,1 @@
+alias csv='for f in $(ls | grep -E "(Stores|MacAddresses)\.xlsx"); do ssconvert $f $(echo $f | sed "s/xlsx/csv/"); done'
