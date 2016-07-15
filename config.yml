@@ -1,0 +1,359 @@
+#====================
+#= Secrets
+#====================
+secrets: secrets.yml
+
+#====================
+#= Templates
+#====================
+templates:
+
+  global:
+    verify_ssl_certificates: no
+
+  #====================
+  #= Template: Transmission connection settings
+  #====================
+  transmission:
+    transmission:
+      host: localhost
+      port: 9091
+      #username: {{ secrets.transmission.username }}
+      #password: {{ secrets.transmission.password }}
+    pathscrub: windows
+
+  #====================
+  #= Template: TV-Shows
+  #====================
+  tvshows:
+    quality: 720p+ hdtv+ h264
+    #trakt_lookup: yes
+    thetvdb_lookup: yes
+    set:
+      path: '/Alexandria/TV-Series/{{series_name}}/Season {{series_season}}'
+      propers: yes
+    series:
+      - 2 Broke Girls
+      - Archer:
+          quality: webdl
+#      - Arrow:
+#          quality: webdl
+      - Brooklyn Nine-Nine:
+          quality: webdl
+      - Community
+      - Designated Survivor:
+          quality: webdl
+      - Elementary:
+          quality: webdl
+      - Fargo:
+          quality: webdl
+#      - Forever (2014):
+#          quality: webdl
+      - Foo Fighters Sonic Highways:
+          quality: webdl
+      - Full Frontal With Samantha Bee
+      - Girls
+      - Gotham:
+          quality: webdl
+      - Halt and Catch Fire:
+          quality: webdl
+      - Heroes of Cosplay
+      - Homeland:
+          quality: webdl
+#      - It's Always Sunny in Philadelphia
+      - Last Week Tonight with John Oliver:
+          identified_by: ep
+      - The Late Show with Stephen Colbert
+      - Louie:
+          quality: webdl
+      - "Marvel's Agents of S.H.I.E.L.D.":
+          quality: webdl
+      - Modern Family:
+          quality: webdl
+      - "Mr. Robot":
+          quality: webdl 1080p
+      - My Little Pony:
+          quality: webdl
+      - Once Upon A Time (2011):
+          quality: webdl
+      - Saturday Night Live
+#      - Sleepy Hollow:
+#          quality: webdl
+      - Suits:
+          quality: webdl
+      - The Big Bang Theory:
+          quality: webdl
+      - The Blacklist:
+          quality: webdl
+      - The Carrie Diaries:
+          quality: webdl
+      - The Daily Show (with Trevor Noah)
+      - The Expanse:
+          quality: webdl
+#      - The Flash:
+#          quality: webdl
+      - The Man in the High Castle:
+          quality: webdl
+      - The Last Ship:
+          quality: webdl
+      - The Leftovers
+      - The Seventies
+      - The Shannara Chronicles:
+          quality: webdl
+      - The Strain:
+          quality: webdl
+      - The X-Files:
+          quality: webdl
+      - Vinyl
+      - Westworld
+      
+  #====================
+  #= Template: TV-Shows (internal)
+  #====================
+  tvshows-i:
+    quality: 720p+ hdtv+ h264
+    #trakt_lookup: yes
+    thetvdb_lookup: yes
+    set:
+      path: '/Alexandria/TV-Series/{{series_name}}/Season {{series_season}}'
+      propers: yes
+    series:
+      - Silicon Valley
+      - Game of Thrones:
+          quality: 1080p
+      - True Detective
+#      - Show Me a Hero
+
+  #====================
+  #= Template: Movies
+  #====================
+  movies:
+    quality: 1080p bluray h264
+    proper_movies: no
+    imdb_lookup: yes
+    tmdb_lookup: yes
+    thetvdb_lookup: yes
+    set:
+      path: '/Alexandria/Movies'
+
+  #====================
+  #= Template: Sports
+  #====================
+  sports:
+    quality: 720p+ hdtv+ h264
+    set:
+      path: '/Users/martin/Movies/Sports'
+    regexp:
+      accept:
+        - NFL.*(2014|2015).*(Giants|Jets)
+      from: title
+  
+  #============================
+  #= Template: Telegram Message
+  #============================
+  telegram_msg:
+    telegram:
+      bot_token: '{{ secrets.telegram.bot_token }}'
+      parse_mode: markdown
+      template: |+
+        {% if task == 'queue-imdb' %}_Adding to watchlist:_{% else %}_Downloading:_{% endif %}
+        
+        {% if series_name is defined %}*{{series_name}}* {{series_id}}        
+        _{{tvdb_ep_name|d(title)}}_
+        {{tvdb_ep_overview|d('Overview unavailable.')}}
+        _(Aired: {{tvdb_ep_air_date|d('Unknown')}})_
+        {% elif tmdb_name is defined %}*{{tmdb_name}}* ({{tmdb_year}})
+        {{imdb_plot_outline|d('Plot outline unavailable.')}}
+        (_{{imdb_score|d('?')}}/10 - {{imdb_votes|d('N/A')}} votes_)
+        {% else %}*{{title}}*{% endif %}
+      recipients:
+        - username: Endemoniada
+
+
+#====================
+#= Tasks
+#====================
+tasks:
+
+  #====================
+  #= Task: TV-Shows from HDBits.org
+  #====================
+  tvshows-hdbits:
+    priority: 10
+    rss: 'https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6'
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - TV-Shows" >> ~/.flexget/runlog
+      on_output:
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+#        for_rejected: echo "- Rejected '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
+#        for_failed: echo "? Failed '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
+    
+    template:
+      - tvshows
+      - transmission
+      - telegram_msg
+
+  #====================
+  #= Task: TV-Shows from HDBits.org (internal)
+  #====================
+  tvshows-hdbits-i:
+    priority: 11
+    rss: 'https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6&type_origin=1'
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - TV-Shows (internal)" >> ~/.flexget/runlog
+      on_output:
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+#        for_rejected: echo "- Rejected '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
+#        for_failed: echo "? Failed '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
+    
+    template:
+      - tvshows-i
+      - transmission
+      - telegram_msg
+
+  #====================
+  #= Task: Movies from HDBits.org
+  #====================
+  movies-hdbits:
+    priority: 30
+
+    rss: 'https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - Movies" >> ~/.flexget/runlog
+      on_output:
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+
+    imdb_lookup: yes
+
+    #list_queue:
+    list_match:
+      from:
+        - movie_list: movies
+
+    template:
+      - movies
+      - transmission
+      - telegram_msg
+
+  #====================
+  #= Task: Movies from HDBits wishlist
+  #====================
+  movies-hdbits-wishlist:
+    priority: 31
+
+#    rss: https://hdbits.org/rss/wishlist?passkey={{ secrets.hdbits.passkey }}
+    rss: 'https://hdbits.org/rss/my?passkey={{ secrets.hdbits.passkey }}'
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - Movies Wishlist" >> ~/.flexget/runlog
+      on_output:
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+
+    proper_movies: no
+    imdb_lookup: yes
+    tmdb_lookup: yes
+    set:
+      path: '/Alexandria/Movies'
+
+    template:
+      - transmission
+      - telegram_msg
+    accept_all: yes
+
+#  #====================
+#  #= Task: Sports from HDBits
+#  #====================
+#  sports-hdbits:
+#    priority: 40
+#
+#    rss: https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=5c1c3&cats[]=5c1c6
+#    exec:
+#      on_start:
+#        phase: echo "$(date +'%d/%m %T') - executing task - Sports HDBits" >> ~/.flexget/runlog
+#      on_output:
+#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+#
+#    template:
+#      - sports
+#      - transmission
+ 
+
+  #====================
+  #= Task: Queue movies from IMDB watchlist
+  #====================
+  queue-imdb:
+    priority: 20
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - Queue IMDB Watchlist" >> ~/.flexget/runlog
+      on_output:
+        for_accepted: echo "+ Added '{{title}}' to queue" >> ~/.flexget/runlog
+
+    imdb_list:
+#      user_id: ur5604227
+#      list: watchlist
+      login: '{{ secrets.imdb.username }}'
+      password: '{{ secrets.imdb.password }}'
+      list: watchlist
+
+    tmdb_lookup: yes
+    imdb_lookup: yes
+
+    template:
+      - telegram_msg
+
+    accept_all: yes
+    list_add:
+      - movie_list: movies
+
+
+#  #====================
+#  #= Task: Sports from HD-SportBits
+#  #====================
+#  sports-sportbits:
+#    priority: 50
+#
+#    rss: http://hd-sportbits.org/torrentrss.php?rows=10&cat405=1&sou1=1&sou3=1&sou4=1&cod1=1&linktype=dl&passkey=HDSPORTBITSPASSKEY
+#    #rss: http://hd-sportbits.org/torrentrss.php?rows=10&cat405=1&med2=1&linktype=dl&passkey=HDSPORTBITSPASSKEY
+#
+#    exec:
+#      on_start:
+#        phase: echo "$(date +'%d/%m %T') - executing task - Sports HD-Sportbits" >> ~/.flexget/runlog
+#      on_output:
+#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+#
+#    template:
+#      - sports
+#      - transmission
+
+
+#====================
+#= Schedules
+#====================
+schedules:
+  - tasks: 'tvshows-hdbits*'
+    interval:
+      hours: 1
+  - tasks: 'movies-hdbits*'
+    interval:
+      hours: 3
+  - tasks: 'queue-imdb'
+#    interval:
+#      hours: 24
+    schedule:
+      hour: 18
+      minute: 30
+#  - tasks: 'sports-hdbits'
+#    interval:
+#      hours: 12
+#  - tasks: 'sports-sportbits'
+#    interval:
+#      hours: 12
