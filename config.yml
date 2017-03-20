@@ -26,7 +26,7 @@ templates:
   #= Template: TV-Shows
   #====================
   tvshows:
-    quality: 720p+ hdtv+ h264
+    quality: 720p+ webrip+ h264
     #trakt_lookup: yes
     thetvdb_lookup: yes
     set:
@@ -35,28 +35,29 @@ templates:
     series:
       - 2 Broke Girls
       - Archer:
-          quality: webdl
-#      - Arrow:
-#          quality: webdl
+          quality: webdl|webrip
+      - Atlanta:
+           quality: webdl|webrip
       - Brooklyn Nine-Nine:
-          quality: webdl
+          quality: webdl|webrip
       - Community
-      - Designated Survivor:
-          quality: webdl
+#      - Designated Survivor:
+#          quality: webdl|webrip
       - Elementary:
-          quality: webdl
-      - Fargo:
-          quality: webdl
+          quality: webdl|webrip
+#      - Fargo:
+#          quality: webdl|webrip
 #      - Forever (2014):
-#          quality: webdl
-      - Foo Fighters Sonic Highways:
-          quality: webdl
+#          quality: webdl|webrip
+#      - Foo Fighters Sonic Highways:
+#          quality: webdl|webrip
       - Full Frontal With Samantha Bee
-      - Girls
+      - Girls:
+          quality: webdl
       - Gotham:
-          quality: webdl
+          quality: webdl|webrip
       - Halt and Catch Fire:
-          quality: webdl
+          quality: webdl|webrip
       - Heroes of Cosplay
       - Homeland:
           quality: webdl
@@ -64,48 +65,50 @@ templates:
       - Last Week Tonight with John Oliver:
           identified_by: ep
       - The Late Show with Stephen Colbert
+      - Legion:
+          quality: webdl
       - Louie:
-          quality: webdl
+          quality: webdl|webrip
       - "Marvel's Agents of S.H.I.E.L.D.":
-          quality: webdl
+          quality: webdl|webrip
       - Modern Family:
-          quality: webdl
+          quality: webdl|webrip
       - "Mr. Robot":
-          quality: webdl 1080p
+          quality: webdl|webrip 1080p
       - My Little Pony:
-          quality: webdl
+          quality: webdl|webrip
       - Once Upon A Time (2011):
-          quality: webdl
+          quality: webdl|webrip
       - Saturday Night Live
 #      - Sleepy Hollow:
-#          quality: webdl
+#          quality: webdl|webrip
       - Suits:
-          quality: webdl
+          quality: webdl|webrip
       - The Big Bang Theory:
-          quality: webdl
-      - The Blacklist:
-          quality: webdl
-      - The Carrie Diaries:
-          quality: webdl
+          quality: webdl|webrip
+#      - The Blacklist:
+#          quality: webdl|webrip
       - The Daily Show (with Trevor Noah)
       - The Expanse:
-          quality: webdl
+          quality: webdl|webrip
 #      - The Flash:
-#          quality: webdl
-      - The Man in the High Castle:
-          quality: webdl
+#          quality: webdl|webrip
+#      - The Man in the High Castle:
+#          quality: webdl|webrip
       - The Last Ship:
-          quality: webdl
+          quality: webdl|webrip
       - The Leftovers
-      - The Seventies
-      - The Shannara Chronicles:
-          quality: webdl
+      - The Mindy Project:
+           quality: webdl|webrip
+#      - The Seventies
+#      - The Shannara Chronicles:
+#          quality: webdl|webrip
       - The Strain:
-          quality: webdl
+          quality: webdl|webrip
       - The X-Files:
-          quality: webdl
-      - Vinyl
-      - Westworld
+          quality: webdl|webrip
+      - Westworld:
+          quality: webdl|webrip
       
   #====================
   #= Template: TV-Shows (internal)
@@ -342,9 +345,12 @@ schedules:
   - tasks: 'tvshows-hdbits*'
     interval:
       hours: 1
-  - tasks: 'movies-hdbits*'
+  - tasks: 'movies-hdbits'
     interval:
       hours: 3
+  - tasks: 'movies-hdbits-wishlist'
+    interval:
+      hours: 1
   - tasks: 'queue-imdb'
 #    interval:
 #      hours: 24
