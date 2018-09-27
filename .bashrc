@@ -41,7 +41,7 @@ alias please='sudo -E'
 # SCRIPTS
 ###
 
-if [ -n "$Darwin"]; then
+if [ ! -z "$Darwin"]; then
   # Scripts and variables for various applications installed through homebrew
   if [ $(which brew) ]; then
       # Git Bash completion
@@ -71,7 +71,7 @@ if [ -n "$Darwin"]; then
       # Byobu configuration
       export BYOBU_PREFIX=$(brew --prefix)
   fi
-elif [ -n $Linux ]; then
+elif [ ! -z $Linux ]; then
   # Scripts and variables for various applications installed through homebrew
     # Git Bash completion
     if [ -f /usr/share/bash_completion ]; then
@@ -110,7 +110,7 @@ else
         export PS1='\[$(tput sgr0)\]\[\033[38;5;3m\]\A\[$(tput sgr0)\] \[\033[38;5;10m\]\u'"$ssh"' \[$(tput sgr0)\]\w\[\e[1m\]\[\033[38;5;254m\]'"$bashgitprompt"'\[$(tput sgr0)\] \$ '
 fi
 
-if which wurtzisms; then
+if $(which wurtzisms > /dev/null 2>&1); then
   echo "Wurtzism of the Day:"
   echo
   wurtzisms --instant
