@@ -11,6 +11,10 @@ for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
         fi
     fi
 
+    if [ "${file}" == ".gitignore" ]; then
+      continue
+    fi
+
     if [ "${file}" == ".gitconfig" ]; then
 
         if [ ! ${mail} ]; then
