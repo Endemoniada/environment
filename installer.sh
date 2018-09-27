@@ -26,7 +26,8 @@ for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
         continue
     fi
 
-    if [ -r "~/${file}" ]; then
+    if [ -r ~/${file} ]; then
+      echo -n "File exists, creating backup:  "
       cp -va ~/${file} ~/.orig${file}
     fi
     cp -v ${source_dir}/${file} ~/
