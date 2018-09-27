@@ -30,8 +30,9 @@ for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
       echo -n "File exists, creating backup:  "
       cp -va ~/${file} ~/.orig${file}
     fi
+    echo -n "Installing file:               "
     cp -v ${source_dir}/${file} ~/
 
 done
 
-echo "Dotfiles installed, enjoy."
+echo -e "\nDotfiles installed, enjoy."
