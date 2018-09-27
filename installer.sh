@@ -4,7 +4,7 @@ source_dir=$(dirname $0)
 kernel=$(uname)
 mail=$1
 
-for file in $(ls -a ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
+for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
     if [ "${file}" == ".slate" ] || [ "${file}" == ".Brewfile" ]; then
         if [ "${kernel}" != "Darwin" ]; then
             continue
