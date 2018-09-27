@@ -23,9 +23,9 @@ for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
     fi
 
     if [ -r "$file" ]; then
-      cp -a ~/${file} ~/.orig${file}
+      cp -va ~/${file} ~/.orig${file}
     fi
-    cp ${source_dir}/${file} ~/
+    cp -v ${source_dir}/${file} ~/
 
 done
 
