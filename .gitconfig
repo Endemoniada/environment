@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Martin Jönsson
-	email = nathaniel@endemoniada.org
+	name = Martin Ekberg
+	email = %%PLACEHOLDER%%
 [push]
 	default = simple
 [color]
