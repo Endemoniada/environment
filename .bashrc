@@ -110,8 +110,11 @@ else
         export PS1='\[$(tput sgr0)\]\[\033[38;5;3m\]\A\[$(tput sgr0)\] \[\033[38;5;10m\]\u'"$ssh"' \[$(tput sgr0)\]\w\[\e[1m\]\[\033[38;5;254m\]'"$bashgitprompt"'\[$(tput sgr0)\] \$ '
 fi
 
-if $(which wurtzisms > /dev/null 2>&1); then
-  echo "Wurtzism of the Day:"
-  echo
-  wurtzisms --instant
+#Only do this if non-root
+if [[ $EUID -ne 0 -a "$(hostname -s)" = "archon" ]]; then
+  if $(which wurtzisms > /dev/null 2>&1); then
+    echo "Wurtzism of the Day:"
+    echo
+    wurtzisms --instant
+  fi
 fi
