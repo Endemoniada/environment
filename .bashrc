@@ -27,21 +27,21 @@ alias gco='git checkout'
 alias grb='git rebase'
 
 # Standard ls alises
-[ -n "$Darwin" ] && alias ls='ls -G' || alias ls='ls --color=auto'
+[ ! -z "$Darwin" ] && alias ls='ls -G' || alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ll -a'
 alias l='ll'
 alias fuck='sudo $(fc -ln -1)'
 alias please='sudo -E'
 
-[ -n "$Darwin" ] && alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
+[ ! -z "$Darwin" ] && alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
 
 
 ###
 # SCRIPTS
 ###
 
-if [ ! -z "$Darwin"]; then
+if [ ! -z "$Darwin" ]; then
   # Scripts and variables for various applications installed through homebrew
   if [ $(which brew) ]; then
       # Git Bash completion
@@ -100,7 +100,7 @@ fi
 ###
 
 # Add hostname if connected by SSH
-if [ -n "$SSH_CLIENT" ]; then ssh='\[\e[1m\]\[\033[38;5;254m\] \h\[$(tput sgr0)\]'; fi
+if [ ! -z "$SSH_CLIENT" ]; then ssh='\[\e[1m\]\[\033[38;5;254m\] \h\[$(tput sgr0)\]'; fi
 # Set user/root bash prompt
 if [ ${EUID} -eq 0 ]; then
         # Red root prompt
