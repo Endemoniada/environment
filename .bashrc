@@ -111,7 +111,7 @@ else
 fi
 
 #Only do this if non-root
-if [[ $EUID -ne 0 -a "$(hostname -s)" = "archon" ]]; then
+if [[ $EUID -ne 0 && "$(hostname -s)" = "archon" ]]; then
   if $(which wurtzisms > /dev/null 2>&1); then
     echo "Wurtzism of the Day:"
     echo
