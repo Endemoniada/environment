@@ -1,0 +1,8 @@
+[Unit]
+Description=Run backup script
+Wants=backup.sh.timer
+OnFailure=status-email-user@%n.service
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/backup.sh
