@@ -12,10 +12,16 @@ fi
 
 date=$(date +'%d.%m.%y-%H:%M')
 hostname=$(hostname -s)
+backup_conf=/etc/backup.sh.conf
 
 # What to backup.
-backup_files="/home /etc /root /opt"
-exclude_files="*/.cache"
+if [[ -r $backup_conf ]]; then
+  source $backup_conf
+else
+  echo "Could not find /etc/backup.sh.conf. Using default settings..."
+  backup_files="/home /etc /root /opt"
+  exclude_files="*/.cache"
+fi
 
 # Where to backup to.
 dest="/tmp/backups"
