@@ -20,7 +20,7 @@ for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
 
         if [ ! ${mail} ]; then
             echo "Enter git commit mail, followed by [ENTER];"
-            read mail
+            read -p "> " mail
         fi
 
         sed "s/%%PLACEHOLDER%%/${mail}/" ${source_dir}/${file} > ~/${file}
@@ -37,6 +37,7 @@ for file in $(ls -A ${source_dir} | egrep '^\.[^.]+' | egrep -v '^\.git$'); do
 done
 
 # Install backup script and necessary files
+echo
 echo "Do you want to install backup script to /user/local/bin and"
 echo "enable systemd units to run it automatically (invokes sudo)? [Y/n]"
 read -n 1 -p "> " answer
@@ -52,4 +53,5 @@ case $answer in
   ;;
 esac
 
-echo -e "\nDotfiles installed, enjoy."
+echo
+echo "Dotfiles installed, enjoy."
