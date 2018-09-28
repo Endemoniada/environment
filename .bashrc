@@ -31,7 +31,7 @@ alias grb='git rebase'
 alias ll='ls -l'
 alias la='ll -a'
 alias l='ll'
-alias fuck='sudo !!'
+alias fuck='sudo $(fc -ln -1)'
 alias please='sudo -E'
 
 [ -n "$Darwin" ] && alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
