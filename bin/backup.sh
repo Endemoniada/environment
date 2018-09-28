@@ -10,20 +10,25 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+date=$(date +'%d.%m.%y-%H:%M')
+hostname=$(hostname -s)
+
 # What to backup.
 backup_files="/home /etc /root /opt"
-exclude_files=""
+exclude_files="*/.cache"
 
 # Where to backup to.
-day=$(date +'%d.%m.%y-%H:%M')
-hostname=$(hostname -s)
 dest="/tmp/backups"
 if [[ ! -d $dest ]]; then
         mkdir -p $dest
 fi
 
+# Create list of installed packages
+pac_list="installed_packages-${hostname}-${date}.list"
+pacman -Q > $dest/$pac_list
+
 # Create archive filename.
-archive_file="${hostname}-${day}.tar.gz"
+archive_file="${hostname}-${date}.tar.gz"
 
 # Print start status message.
 echo "Backing up $backup_files to $dest/$archive_file"
@@ -31,9 +36,7 @@ date
 echo
 
 # Backup the files using tar.
-tar czf $dest/$archive_file $backup_files --exclude-caches-all
-# Comment the previous, and uncomment the following, if you want to exclude files
-#tar czf $dest/$archive_file $backup_files --exclude=$exclude_files --exclude-caches-all
+tar czf $dest/$archive_file --exclude=$exclude_files --exclude-caches-all $backup_files -C $dest $pac_list
 chmod 600 $dest/$archive_file
 
 # Print end status message.
