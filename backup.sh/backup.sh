@@ -24,31 +24,31 @@ else
 fi
 
 # Where to backup to.
-dest="/tmp/backups"
-if [[ ! -d $dest ]]; then
-        mkdir -p $dest
+backup_destination="/tmp/backups"
+if [[ ! -d $backup_destination ]]; then
+        mkdir -p $backup_destination
 fi
 
 # Create list of installed packages
 pac_list="installed_packages-${hostname}-${date}.list"
-pacman -Q > $dest/$pac_list
+pacman -Q > $backup_destination/$pac_list
 
 # Create archive filename.
 archive_file="${hostname}-${date}.tar.gz"
 
 # Print start status message.
-echo "Backing up $backup_files to $dest/$archive_file"
+echo "Backing up $backup_files to $backup_destination/$archive_file"
 date
 echo
 
 # Backup the files using tar.
-tar czf $dest/$archive_file --exclude=$exclude_files --exclude-caches-all $backup_files -C $dest $pac_list
-chmod 600 $dest/$archive_file
+tar czf $backup_destination/$archive_file --exclude=$exclude_files --exclude-caches-all $backup_files -C $backup_destination $pac_list
+chmod 600 $backup_destination/$archive_file
 
 # Print end status message.
 echo
 echo "Backup finished"
 date
 
-# Long listing of files in $dest to check file sizes.
-ls -lh $dest
+# Long listing of files in $backup_destination to check file sizes.
+ls -lh $backup_destination
