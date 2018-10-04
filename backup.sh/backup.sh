@@ -12,6 +12,8 @@ fi
 
 date=$(date +'%d.%m.%y-%H:%M')
 hostname=$(hostname -s)
+# (Default) Where to backup to.
+backup_destination="/tmp/backups"
 backup_conf=/etc/backup.sh.conf
 
 # What to backup.
@@ -23,8 +25,6 @@ else
   exclude_files="*/.cache"
 fi
 
-# Where to backup to.
-backup_destination="/tmp/backups"
 if [[ ! -d $backup_destination ]]; then
         mkdir -p $backup_destination
 fi
