@@ -1,7 +1,7 @@
 #====================
 #= Secrets
 #====================
-secrets: secrets.yml
+variables: secrets.yml
 
 #====================
 #= Templates
@@ -18,8 +18,8 @@ templates:
     transmission:
       host: localhost
       port: 9091
-      #username: {{ secrets.transmission.username }}
-      #password: {{ secrets.transmission.password }}
+      #username: {? transmission.username ?}
+      #password: {? transmission.password ?}
     pathscrub: windows
 
   #====================
@@ -34,110 +34,115 @@ templates:
       propers: yes
     series:
       - 2 Broke Girls
-      - Archer:
-          quality: webdl|webrip
+      - American Gods:
+          quality: webdl
+      #- Archer:
+      #    quality: 1080p webdl|webrip
       - Atlanta:
-           quality: webdl|webrip
+          quality: 1080p webdl|webrip
+      - Barry:
+          quality: 1080p webdl|webrip
       - Brooklyn Nine-Nine:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - Community
-#      - Designated Survivor:
-#          quality: webdl|webrip
+      - Counterpart:
+          quality: 1080p webdl|webrip
+      - Divorce (2016):
+          quality: 1080p webdl|webrip
       - Elementary:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
 #      - Fargo:
-#          quality: webdl|webrip
-#      - Forever (2014):
-#          quality: webdl|webrip
-#      - Foo Fighters Sonic Highways:
-#          quality: webdl|webrip
-      - Full Frontal With Samantha Bee
-      - Girls:
-          quality: webdl
+#          quality: 1080p webdl|webrip
+      - Game of Thrones:
+          quality: 1080p webdl|webrip
       - Gotham:
-          quality: webdl|webrip
-      - Halt and Catch Fire:
-          quality: webdl|webrip
-      - Heroes of Cosplay
+          quality: 1080p webdl|webrip
+      - Great News
+      - "Happy!":
+          quality: 1080p webdl|webrip
       - Homeland:
-          quality: webdl
+          quality: 1080p webdl|webrip
 #      - It's Always Sunny in Philadelphia
+      - Kidding:
+          quality: 1080p webdl|webrip
       - Last Week Tonight with John Oliver:
           identified_by: ep
       - The Late Show with Stephen Colbert
       - Legion:
-          quality: webdl
+          quality: 1080p webdl|webrip
       - Louie:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - "Marvel's Agents of S.H.I.E.L.D.":
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - Modern Family:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - "Mr. Robot":
-          quality: webdl|webrip 1080p
+          quality: 1080p webdl|webrip
       - My Little Pony:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - Once Upon A Time (2011):
-          quality: webdl|webrip
-      - Saturday Night Live
-#      - Sleepy Hollow:
-#          quality: webdl|webrip
+          quality: 1080p webdl|webrip
+      - Saturday Night Live:
+          quality: 1080p webdl|webrip
+      - Sharp Objects:
+          quality: 1080p webdl|webrip
+          season_packs: only
+      - Silicon Valley:
+          quality: 1080p webdl|webrip
       - Suits:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - The Big Bang Theory:
-          quality: webdl|webrip
-#      - The Blacklist:
-#          quality: webdl|webrip
+          quality: 1080p webdl|webrip
       - The Daily Show (with Trevor Noah)
-      - The Expanse:
-          quality: webdl|webrip
-#      - The Flash:
-#          quality: webdl|webrip
+      - The Deuce:
+          quality: 1080p webdl|webrip
+      #- The Expanse:
+      #    quality: 1080p webdl|webrip
+      - The Handmaid's Tale:
+          quality: 1080p webdl|webrip
 #      - The Man in the High Castle:
-#          quality: webdl|webrip
+#          quality: 1080p webdl|webrip
       - The Last Ship:
-          quality: webdl|webrip
-      - The Leftovers
-      - The Mindy Project:
-           quality: webdl|webrip
-#      - The Seventies
-#      - The Shannara Chronicles:
-#          quality: webdl|webrip
-      - The Strain:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
+      - The Tick
       - The X-Files:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
+      - True Detective:
+          quality: 1080p webdl|webrip
       - Westworld:
-          quality: webdl|webrip
+          quality: 1080p webdl|webrip
+      - "Who Is America?":
+          quality: 1080p webdl|webrip
       
-  #====================
-  #= Template: TV-Shows (internal)
-  #====================
-  tvshows-i:
-    quality: 720p+ hdtv+ h264
-    #trakt_lookup: yes
-    thetvdb_lookup: yes
-    set:
-      path: '/Alexandria/TV-Series/{{series_name}}/Season {{series_season}}'
-      propers: yes
-    series:
-      - Silicon Valley
-      - Game of Thrones:
-          quality: 1080p
-      - True Detective
-#      - Show Me a Hero
+#  #====================
+#  #= Template: TV-Shows (internal)
+#  #====================
+#  tvshows-i:
+#    quality: 720p+ hdtv+ h264
+#    #trakt_lookup: yes
+#    thetvdb_lookup: yes
+#    set:
+#      path: '/Alexandria/TV-Series/{{series_name}}/Season {{series_season}}'
+#      propers: yes
+#    series:
+#      - Silicon Valley
+#      - True Detective
+##      - Show Me a Hero
 
   #====================
   #= Template: Movies
   #====================
   movies:
-    quality: 1080p bluray h264
+    quality: 1080p+ bluray h264+
     proper_movies: no
     imdb_lookup: yes
     tmdb_lookup: yes
     thetvdb_lookup: yes
     set:
       path: '/Alexandria/Movies'
+    regexp:
+      reject:
+        - \b3-?D\b: {from: title}                             # Reject 3D versions
 
   #====================
   #= Template: Sports
@@ -155,22 +160,26 @@ templates:
   #= Template: Telegram Message
   #============================
   telegram_msg:
-    telegram:
-      bot_token: '{{ secrets.telegram.bot_token }}'
-      parse_mode: markdown
-      template: |+
-        {% if task == 'queue-imdb' %}_Adding to watchlist:_{% else %}_Downloading:_{% endif %}
-        
-        {% if series_name is defined %}*{{series_name}}* {{series_id}}        
-        _{{tvdb_ep_name|d(title)}}_
-        {{tvdb_ep_overview|d('Overview unavailable.')}}
-        _(Aired: {{tvdb_ep_air_date|d('Unknown')}})_
-        {% elif tmdb_name is defined %}*{{tmdb_name}}* ({{tmdb_year}})
-        {{imdb_plot_outline|d('Plot outline unavailable.')}}
-        (_{{imdb_score|d('?')}}/10 - {{imdb_votes|d('N/A')}} votes_)
-        {% else %}*{{title}}*{% endif %}
-      recipients:
-        - username: Endemoniada
+    notify:
+      entries:
+        message: |+
+          {% if task == 'queue-imdb' %}_Adding to watchlist:_{% elif task == 'movies-hdbits-4k-upgrade' %}_4K upgrade available:_{% else %}_Downloading:_{% endif %}
+          
+          {% if series_name is defined %}*{{series_name}}* {{series_id}}        
+          _{{tvdb_ep_name|d(title)}}_
+          {{tvdb_ep_overview|d('Overview unavailable.')}}
+          _(Aired: {{tvdb_ep_air_date|d('Unknown')}})_
+          {% elif tmdb_name is defined %}*{{tmdb_name}}* ({{tmdb_year}})
+          {{imdb_plot_outline|d('Plot outline unavailable.')}}
+          (_{{imdb_score|d('?')}}/10 - {{imdb_votes|d('N/A')}} votes_)
+          {% if task == 'movies-hdbits-4k-upgrade' %}[HDBits movie page](https://hdbits.org/browse2.php#film/dir=null&searchtype=film&actorfilm=film&search={{imdb_id}}){% endif %}
+          {% else %}*{{title}}*{% endif %}
+        via:
+          - telegram:
+              bot_token: '{? telegram.bot_token ?}'
+              parse_mode: markdown
+              recipients:
+                - username: '{? telegram.username ?}'
 
 
 #====================
@@ -183,40 +192,40 @@ tasks:
   #====================
   tvshows-hdbits:
     priority: 10
-    rss: 'https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6'
+    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6'
 
     exec:
       on_start:
-        phase: echo "$(date +'%d/%m %T') - executing task - TV-Shows" >> ~/.flexget/runlog
+        phase: echo "$(date +'%d/%m %T') - executing task - TV-Shows" >> ~/runlog
       on_output:
-        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
-#        for_rejected: echo "- Rejected '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
-#        for_failed: echo "? Failed '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/runlog
+#        for_rejected: echo "- Rejected '{{title}}' Reason={{reason}}" >> ~/runlog
+#        for_failed: echo "? Failed '{{title}}' Reason={{reason}}" >> ~/runlog
     
     template:
       - tvshows
       - transmission
       - telegram_msg
 
-  #====================
-  #= Task: TV-Shows from HDBits.org (internal)
-  #====================
-  tvshows-hdbits-i:
-    priority: 11
-    rss: 'https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6&type_origin=1'
-
-    exec:
-      on_start:
-        phase: echo "$(date +'%d/%m %T') - executing task - TV-Shows (internal)" >> ~/.flexget/runlog
-      on_output:
-        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
-#        for_rejected: echo "- Rejected '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
-#        for_failed: echo "? Failed '{{title}}' Reason={{reason}}" >> ~/.flexget/runlog
-    
-    template:
-      - tvshows-i
-      - transmission
-      - telegram_msg
+#  #====================
+#  #= Task: TV-Shows from HDBits.org (internal)
+#  #====================
+#  tvshows-hdbits-i:
+#    priority: 11
+#    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6&type_origin=1'
+#
+#    exec:
+#      on_start:
+#        phase: echo "$(date +'%d/%m %T') - executing task - TV-Shows (internal)" >> ~/runlog
+#      on_output:
+#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/runlog
+##        for_rejected: echo "- Rejected '{{title}}' Reason={{reason}}" >> ~/runlog
+##        for_failed: echo "? Failed '{{title}}' Reason={{reason}}" >> ~/runlog
+#    
+#    template:
+#      - tvshows-i
+#      - transmission
+#      - telegram_msg
 
   #====================
   #= Task: Movies from HDBits.org
@@ -224,13 +233,13 @@ tasks:
   movies-hdbits:
     priority: 30
 
-    rss: 'https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
+    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
 
     exec:
       on_start:
-        phase: echo "$(date +'%d/%m %T') - executing task - Movies" >> ~/.flexget/runlog
+        phase: echo "$(date +'%d/%m %T') - executing task - Movies" >> ~/runlog
       on_output:
-        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/runlog
 
     imdb_lookup: yes
 
@@ -238,10 +247,41 @@ tasks:
     list_match:
       from:
         - movie_list: movies
+    list_add:
+      - movie_list: 4k-upgrade
 
     template:
       - movies
       - transmission
+      - telegram_msg
+
+  #====================
+  #= Task: Movies from HDBits.org
+  #====================
+  movies-hdbits-4k-upgrade:
+    priority: 32
+
+    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c5c3&cats[]=1c5c5&type_origin=1'
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - Movies (4K upgrade)" >> ~/runlog
+      on_output:
+        for_accepted: echo "+ Notified '{{title}}'" >> ~/runlog
+
+    regexp:
+      reject:
+        - \b3-?D\b: {from: title}                             # Reject 3D versions
+    imdb_lookup: yes
+    tmdb_lookup: yes
+    thetvdb_lookup: yes
+
+    #list_queue:
+    list_match:
+      from:
+        - movie_list: 4k-upgrade
+
+    template:
       - telegram_msg
 
   #====================
@@ -250,14 +290,14 @@ tasks:
   movies-hdbits-wishlist:
     priority: 31
 
-#    rss: https://hdbits.org/rss/wishlist?passkey={{ secrets.hdbits.passkey }}
-    rss: 'https://hdbits.org/rss/my?passkey={{ secrets.hdbits.passkey }}'
+#    rss: https://hdbits.org/rss/wishlist?passkey={{ s{ecrets.hdbits.passkey }}
+    rss: 'https://hdbits.org/rss/my?passkey={? hdbits.passkey ?}'
 
     exec:
       on_start:
-        phase: echo "$(date +'%d/%m %T') - executing task - Movies Wishlist" >> ~/.flexget/runlog
+        phase: echo "$(date +'%d/%m %T') - executing task - Movies Wishlist" >> ~/runlog
       on_output:
-        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+        for_accepted: echo "+ Accepted '{{title}}'" >> ~/runlog
 
     proper_movies: no
     imdb_lookup: yes
@@ -268,7 +308,13 @@ tasks:
     template:
       - transmission
       - telegram_msg
+    disable:
+      - seen
+      - seen_info_hash
+      - rejected
+      - remember_rejected
     accept_all: yes
+    no_entries_ok: yes
 
 #  #====================
 #  #= Task: Sports from HDBits
@@ -276,12 +322,12 @@ tasks:
 #  sports-hdbits:
 #    priority: 40
 #
-#    rss: https://hdbits.org/rss/feed?passkey={{ secrets.hdbits.passkey }}&feed=dl&cats[]=5c1c3&cats[]=5c1c6
+#    rss: https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=5c1c3&cats[]=5c1c6
 #    exec:
 #      on_start:
-#        phase: echo "$(date +'%d/%m %T') - executing task - Sports HDBits" >> ~/.flexget/runlog
+#        phase: echo "$(date +'%d/%m %T') - executing task - Sports HDBits" >> ~/runlog
 #      on_output:
-#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/runlog
 #
 #    template:
 #      - sports
@@ -296,15 +342,19 @@ tasks:
 
     exec:
       on_start:
-        phase: echo "$(date +'%d/%m %T') - executing task - Queue IMDB Watchlist" >> ~/.flexget/runlog
+        phase: echo "$(date +'%d/%m %T') - executing task - Queue IMDB Watchlist" >> ~/runlog
       on_output:
-        for_accepted: echo "+ Added '{{title}}' to queue" >> ~/.flexget/runlog
+        for_accepted: echo "+ Added '{{title}}' to queue" >> ~/runlog
 
-    imdb_list:
+#    imdb_list:
 #      user_id: ur5604227
 #      list: watchlist
-      login: '{{ secrets.imdb.username }}'
-      password: '{{ secrets.imdb.password }}'
+#      login: '{? imdb.username ?}'
+#      password: '{? imdb.password ?}'
+#      list: watchlist
+
+    imdb_watchlist:
+      user_id: ur5604227
       list: watchlist
 
     tmdb_lookup: yes
@@ -329,9 +379,9 @@ tasks:
 #
 #    exec:
 #      on_start:
-#        phase: echo "$(date +'%d/%m %T') - executing task - Sports HD-Sportbits" >> ~/.flexget/runlog
+#        phase: echo "$(date +'%d/%m %T') - executing task - Sports HD-Sportbits" >> ~/runlog
 #      on_output:
-#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/.flexget/runlog
+#        for_accepted: echo "+ Accepted '{{title}}'" >> ~/runlog
 #
 #    template:
 #      - sports
