@@ -281,6 +281,8 @@ tasks:
       from:
         - movie_list: 4k-upgrade
 
+    quality: 2160p+ remux+ h265+
+
     template:
       - telegram_msg
 
@@ -395,7 +397,7 @@ schedules:
   - tasks: 'tvshows-hdbits*'
     interval:
       hours: 1
-  - tasks: 'movies-hdbits'
+  - tasks: 'movies-hdbits*'
     interval:
       hours: 3
   - tasks: 'movies-hdbits-wishlist'
