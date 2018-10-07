@@ -1,0 +1,15 @@
+[Unit]
+Description = Backups share on pieNAP
+Requires=systemd-networkd.service
+After=network-online.target
+Wants=network-online.target
+
+[Mount]
+What = //10.0.1.5/Backups
+Where = /mnt/backups
+Type = cifs
+Options = credentials=/etc/samba/creds/mnt-backups,iocharset=utf8,rw,x-systemd.automount,file_mode=0750,dir_mode=0750
+TimeoutSec = 30
+
+[Install]
+WantedBy = multi-user.target
