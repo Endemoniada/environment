@@ -3,7 +3,7 @@ Description = Backups share on pieNAP
 Requires=systemd-networkd.service
 After=network-online.target
 Wants=network-online.target
-OnFailure=status-email-user@%n.service
+OnFailure=status-email-user@%n.service status-send-telegram@%n.service
 
 [Mount]
 What = //10.0.1.5/Backups
