@@ -1,0 +1,13 @@
+#!/bin/bash
+
+/usr/local/bin/telegram-send --format markdown --stdin <<TELEGRAM
+⚠️  A Systemd unit has failed! ⚠️
+
+Unit: \`${1}\`
+Host: \`$(hostname)\`
+
+Service output:
+\`\`\`
+$(systemctl status --full "$1")
+\`\`\`
+TELEGRAM

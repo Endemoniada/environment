@@ -1,0 +1,18 @@
+[Unit]
+Description=Flexget Daemon
+After=network.target transmission.service
+Wants=transmission.service
+OnFailure=status-email-user@%n.service status-send-telegram@%n.service
+
+[Service]
+Type=simple
+User=flexget
+Group=flexget
+UMask=000
+WorkingDirectory=/opt/flexget
+ExecStart=/opt/flexget/bin/flexget daemon start
+ExecStop=/opt/flexget/bin/flexget daemon stop
+ExecReload=/opt/flexget/bin/flexget daemon reload
+
+[Install]
+WantedBy=multi-user.target

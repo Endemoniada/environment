@@ -1,0 +1,9 @@
+[Unit]
+Description=Check for unclean shutdown at boot
+
+[Timer]
+Unit=check_clean_boot.service
+OnBootSec=0
+
+[Install]
+WantedBy=timers.target
