@@ -48,8 +48,19 @@ case $answer in
     if [[ ! -r /etc/backup.sh.conf ]]; then
       sudo cp -v $source_dir/backup.sh/backup.sh.conf /etc/
     fi
-    sudo cp -v $source_dir/systemd/backup.sh.* /etc/systemd/system/
-    sudo systemctl daemon-reload && sudo systemctl start backup.sh.timer && sudo systemctl enable backup.sh.timer
+    # Install custom scripts to /usr/local/bin/
+    for file in $(find $source_dir/systemd/bin -maxdepth 1 -type f |grep -v -i readme); do
+      sudo cp -v $file /usr/local/bin/
+    done
+    # Install service unit files and enable them
+    for file in $(find $source_dir/systemd -maxdepth 1 -type f -iname '*.service'); do
+      sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload
+      grep -q -i 'oneshot' $file || sudo systemctl enable $(basename $file)
+    done
+    # Install timer unit files and enable them
+    for file in $(find $source_dir/systemd -maxdepth 1 -type f -iname '*.timer'); do
+      sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable $(basename $file)
+    done
   ;;
 esac
 
