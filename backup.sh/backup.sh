@@ -34,11 +34,11 @@ if [[ ! -d $backup_destination ]]; then
 fi
 
 # Create list of installed packages
-pac_list="installed_packages-${hostname}-${date}.list"
+pac_list="${hostname}-installed_packages-${date}.list"
 pacman -Q > $backup_destination/$pac_list
 
 # Create archive filename.
-archive_file="${hostname}-${date}.tar.gz"
+archive_file="${hostname}-filesystem_backup-${date}.tar.gz"
 
 # Print start status message.
 echo "Backing up $backup_files to $backup_destination/$archive_file"
