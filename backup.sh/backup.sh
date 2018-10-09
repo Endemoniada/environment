@@ -16,6 +16,10 @@ hostname=$(hostname -s)
 backup_destination="/tmp/backups"
 backup_conf=/etc/backup.sh.conf
 
+#First, perform some cleanup
+echo "Performing cleanup of backups > 8 weeks old"
+find $backup_destination -maxdepth 1 -type f -mtime +56 \( -name '*.tar.gz' -o -name '*.list' \) -exec rm -v {} \;
+
 # What to backup.
 if [[ -r $backup_conf ]]; then
   source $backup_conf
