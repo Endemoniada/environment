@@ -4,9 +4,9 @@
 set -e
 
 source_dir=$(dirname $0)
-sys_bin_dir=$sys_bin_dir
-sys_sysd_dir=$sys_sysd_dir
-sys_etc_dir=$sys_etc_dir
+sys_bin_dir=$source_dir/system/bin
+sys_sysd_dir=$source_dir/system/systemd
+sys_etc_dir=$source_dir/system/etc
 kernel=$(uname)
 mail=$1
 
