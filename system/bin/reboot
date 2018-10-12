@@ -1,1 +1,2 @@
+#!/bin/sh
 touch /var/tmp/clean_boot && /usr/bin/reboot
