@@ -92,6 +92,10 @@ if [[ "$(hostname)" == "archivist" || "$(hostname)" == "archon" ]]; then
     for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.timer' | grep -v -i readme); do
       sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable $(basename $file)
     done
+    # Install mount unit files and enable them
+    for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.mount' | grep -v -i readme); do
+      sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable $(basename $file)
+    done
   fi
 fi
 
