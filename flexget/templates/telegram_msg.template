@@ -1,0 +1,11 @@
+{% if task == 'queue-imdb' %}_Adding to watchlist:_{% elif task == 'movies-hdbits-4k-upgrade' %}_4K upgrade available:_{% else %}_Downloading:_{% endif %}
+
+{% if series_name is defined %}📺 [{{series_name}}]({{imdb_url}}) {{series_id}}
+_{{tvdb_ep_name|d(title)}}_
+{{tvdb_ep_overview|d('Overview unavailable.')}}
+_(Aired: {{tvdb_ep_air_date|d('Unknown')}})_
+{% elif imdb_name is defined %}📽 [{{imdb_name}}]({{imdb_url}}) ({{imdb_year}})
+{{imdb_plot_outline|d('Plot outline unavailable.')}}
+(_{{imdb_score|d('?')}}/10 - {{imdb_votes|d('N/A')}} votes_)
+{% if task == 'movies-hdbits-4k-upgrade' %}[HDBits movie page](https://hdbits.org/browse2.php#film/dir=null&searchtype=film&actorfilm=film&search={{imdb_id}}){% endif %}
+{% else %}[{{title|d('Unknown')}}](http://flexget.com){% endif %}
