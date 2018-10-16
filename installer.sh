@@ -46,7 +46,8 @@ install_system_files() {
   done
 
   # Install systemd unit files
-  sudo rsync -rv $sys_sysd_dir/ /etc/systemd/system/ && systemctl daemon-reload
+  sudo rsync -rv $sys_sysd_dir/ /etc/systemd/system/
+  sudo systemctl daemon-reload
   # Enable all service units except oneshot
   for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.service' | grep -v -i readme); do
     grep -q -i 'oneshot' $file || sudo systemctl enable $(basename $file)
