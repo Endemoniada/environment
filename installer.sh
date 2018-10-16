@@ -111,8 +111,10 @@ if [[ "$(hostname)" == "archivist" || "$(hostname)" == "archon" ]]; then
   echo "Do you want to install system binaries, system config files"
   echo "and install and enable systemd units/timers? (will invoke sudo)"
   if [[ "$(ask N)" == "Y" ]]; then
+    echo "Installing general system files\n"
     install_system_files $source_dir/system
     if [[ -d $source_dir/system/$(hostname) ]]; then
+      echo "Installing $(hostname) specific system files\n"
       install_system_files $source_dir/system/$(hostname)
     fi
   fi
