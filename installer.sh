@@ -33,6 +33,7 @@ install_system_files() {
 
   # Install custom scripts to /usr/local/bin/
   if [[ -d $sys_bin_dir ]]; then
+    echo -e "\nInstalling binaries to /usr/local/bin/"
     for file in $(find $sys_bin_dir -maxdepth 1 -type f | grep -v -i readme); do
       sudo cp -v $file /usr/local/bin/
     done
@@ -40,9 +41,10 @@ install_system_files() {
 
   # Install config files to /etc/ (does not overwrite existing files)
   if [[ -d $sys_etc_dir ]]; then
+    echo -e "\nInstalling config files to /etc/"
     for file in $(find $sys_etc_dir -maxdepth 1 -type f | grep -v -i readme); do
-      if [ -r /etc/${file} ]; then
-        echo "File /etc/${file} already exists, will not overwrite"
+      if [[ -r /etc/$file ]]; then
+        echo "File /etc/${file} already exists, will not overwrite!"
       else
         sudo cp -n -v $file /etc/
       fi
@@ -51,7 +53,8 @@ install_system_files() {
 
   # Install systemd unit files
   if [[ -d $sys_sysd_dir ]]; then
-    sudo rsync -rv $sys_sysd_dir/ /etc/systemd/system/
+    echo -e "\nInstalling systemd unit files to /etc/systemd/system/"
+    sudo rsync -r --out-format="%f" $sys_sysd_dir/ /etc/systemd/system/ --exclude 'README.md'
     sudo systemctl daemon-reload
     # Enable all service units except oneshot
     for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.service' | grep -v -i readme); do
@@ -111,10 +114,10 @@ if [[ "$(hostname)" == "archivist" || "$(hostname)" == "archon" ]]; then
   echo "Do you want to install system binaries, system config files"
   echo "and install and enable systemd units/timers? (will invoke sudo)"
   if [[ "$(ask N)" == "Y" ]]; then
-    echo "Installing general system files\n"
+    echo -e "\nInstalling generic system files"
     install_system_files $source_dir/system
     if [[ -d $source_dir/system/$(hostname) ]]; then
-      echo "Installing $(hostname) specific system files\n"
+      echo -e "\nInstalling $(hostname) specific system files"
       install_system_files $source_dir/system/$(hostname)
     fi
   fi
