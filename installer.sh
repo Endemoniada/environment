@@ -32,34 +32,40 @@ install_system_files() {
   echo
 
   # Install custom scripts to /usr/local/bin/
-  for file in $(find $sys_bin_dir -maxdepth 1 -type f | grep -v -i readme); do
-    sudo cp -v $file /usr/local/bin/
-  done
+  if [[ -d $sys_bin_dir ]]; then
+    for file in $(find $sys_bin_dir -maxdepth 1 -type f | grep -v -i readme); do
+      sudo cp -v $file /usr/local/bin/
+    done
+  fi
 
   # Install config files to /etc/ (does not overwrite existing files)
-  for file in $(find $sys_etc_dir -maxdepth 1 -type f | grep -v -i readme); do
-    if [ -r /etc/${file} ]; then
-      echo "File /etc/${file} already exists, will not overwrite"
-    else
-      sudo cp -n -v $file /etc/
-    fi
-  done
+  if [[ -d $sys_etc_dir ]]; then
+    for file in $(find $sys_etc_dir -maxdepth 1 -type f | grep -v -i readme); do
+      if [ -r /etc/${file} ]; then
+        echo "File /etc/${file} already exists, will not overwrite"
+      else
+        sudo cp -n -v $file /etc/
+      fi
+    done
+  fi
 
   # Install systemd unit files
-  sudo rsync -rv $sys_sysd_dir/ /etc/systemd/system/
-  sudo systemctl daemon-reload
-  # Enable all service units except oneshot
-  for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.service' | grep -v -i readme); do
-    grep -q -i 'oneshot' $file || sudo systemctl enable $(basename $file)
-  done
-  # Enable all timer units
-  for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.timer' | grep -v -i readme); do
-    sudo systemctl enable $(basename $file)
-  done
-  # Enable all mount units
-  for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.mount' | grep -v -i readme); do
-    sudo systemctl enable $(basename $file)
-  done
+  if [[ -d $sys_sysd_dir ]]; then
+    sudo rsync -rv $sys_sysd_dir/ /etc/systemd/system/
+    sudo systemctl daemon-reload
+    # Enable all service units except oneshot
+    for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.service' | grep -v -i readme); do
+      grep -q -i 'oneshot' $file || sudo systemctl enable $(basename $file)
+    done
+    # Enable all timer units
+    for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.timer' | grep -v -i readme); do
+      sudo systemctl enable $(basename $file)
+    done
+    # Enable all mount units
+    for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.mount' | grep -v -i readme); do
+      sudo systemctl enable $(basename $file)
+    done
+  fi
 }
 
 # Walk through and install user dotfiles in main directory
