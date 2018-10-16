@@ -26,16 +26,16 @@ ask () {
 
 install_system_files() {
   local source_dir=$1
-  local sys_bin_dir=$source_dir/system/bin
-  local sys_etc_dir=$source_dir/system/etc
-  local sys_sysd_dir=$source_dir/system/systemd
-
-  # TODO: Add functionality to split files per host
+  local sys_bin_dir=$source_dir/bin
+  local sys_etc_dir=$source_dir/etc
+  local sys_sysd_dir=$source_dir/systemd
   echo
+
   # Install custom scripts to /usr/local/bin/
   for file in $(find $sys_bin_dir -maxdepth 1 -type f | grep -v -i readme); do
     sudo cp -v $file /usr/local/bin/
   done
+
   # Install config files to /etc/ (does not overwrite existing files)
   for file in $(find $sys_etc_dir -maxdepth 1 -type f | grep -v -i readme); do
     if [ -r /etc/${file} ]; then
@@ -44,18 +44,20 @@ install_system_files() {
       sudo cp -n -v $file /etc/
     fi
   done
-  # Install service unit files and enable them
+
+  # Install systemd unit files
+  sudo rsync -rv $sys_sysd_dir/ /etc/systemd/system/ && systemctl daemon-reload
+  # Enable all service units except oneshot
   for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.service' | grep -v -i readme); do
-    sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload
     grep -q -i 'oneshot' $file || sudo systemctl enable $(basename $file)
   done
-  # Install timer unit files and enable them
+  # Enable all timer units
   for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.timer' | grep -v -i readme); do
-    sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable $(basename $file)
+    sudo systemctl enable $(basename $file)
   done
-  # Install mount unit files and enable them
+  # Enable all mount units
   for file in $(find $sys_sysd_dir -maxdepth 1 -type f -iname '*.mount' | grep -v -i readme); do
-    sudo cp -v $file /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable $(basename $file)
+    sudo systemctl enable $(basename $file)
   done
 }
 
@@ -102,9 +104,9 @@ if [[ "$(hostname)" == "archivist" || "$(hostname)" == "archon" ]]; then
   echo "Do you want to install system binaries, system config files"
   echo "and install and enable systemd units/timers? (will invoke sudo)"
   if [[ "$(ask N)" == "Y" ]]; then
-    install_system_files $source_dir
-    if [[ -d $source_dir/$(hostname) ]]; then
-      install_system_files $source_dir/$(hostname)
+    install_system_files $source_dir/system
+    if [[ -d $source_dir/system/$(hostname) ]]; then
+      install_system_files $source_dir/system/$(hostname)
     fi
   fi
 fi
