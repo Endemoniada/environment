@@ -70,6 +70,7 @@ if [[ "$(hostname)" == "archivist" || "$(hostname)" == "archon" ]]; then
   echo "Do you want to install system binaries, system config files"
   echo "and install and enable systemd units/timers? (will invoke sudo)"
   if [[ "$(ask N)" == "Y" ]]; then
+    # TODO: Add functionality to split files per host
     echo
     # Install custom scripts to /usr/local/bin/
     for file in $(find $sys_bin_dir -maxdepth 1 -type f | grep -v -i readme); do
