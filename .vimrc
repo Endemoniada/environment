@@ -1,6 +1,6 @@
 syntax on
 set mouse=
-filetype off
+"filetype off
 
 " When there is a previous search pattern, highlight all its matches.
 set hlsearch

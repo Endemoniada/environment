@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-[ -d ~/bin ] && export PATH=$PATH:~/bin
+[[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
 eval $(uname -s)=true
 
@@ -27,29 +27,30 @@ alias gco='git checkout'
 alias grb='git rebase'
 
 # Standard ls alises
-[ ! -z "$Darwin" ] && alias ls='ls -G' || alias ls='ls --color=auto'
+[[ "$Darwin" ]] && alias ls='ls -G' || alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ll -a'
+alias lh='ll -h'
 alias l='ll'
 alias fuck='sudo $(fc -ln -1)'
 alias please='sudo -E'
 
-[ ! -z "$Darwin" ] && alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
+[[ "$Darwin" ]] && alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
 
 
 ###
 # SCRIPTS
 ###
 
-if [ ! -z "$Darwin" ]; then
+if [[ "$Darwin" ]]; then
   # Scripts and variables for various applications installed through homebrew
-  if [ $(which brew) ]; then
+  if [[ $(which brew) ]]; then
       # Git Bash completion
-      if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      if [[ -f $(brew --prefix)/etc/bash_completion ]]; then
           source $(brew --prefix)/etc/bash_completion
       fi
       GIT_PS1_SHOWDIRTYSTATE=true
-      if [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
+      if [[ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]]; then
           source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
           bashgitprompt='$(__git_ps1)'
       fi
@@ -63,7 +64,7 @@ if [ ! -z "$Darwin" ]; then
       export PIP_RESPECT_VIRTUALENV=true
 
       # Python VirtualEnv wrapper
-      if [ -f $(brew --prefix)/bin/virtualenvwrapper.sh ]; then
+      if [[ -f $(brew --prefix)/bin/virtualenvwrapper.sh ]]; then
           source $(brew --prefix)/bin/virtualenvwrapper.sh
       fi
   #    export PIP_REQUIRE_VIRTUALENV=true
@@ -71,20 +72,21 @@ if [ ! -z "$Darwin" ]; then
       # Byobu configuration
       export BYOBU_PREFIX=$(brew --prefix)
   fi
-elif [ ! -z $Linux ]; then
+fi
+if [[ $Linux ]]; then
   # Scripts and variables for various applications installed through homebrew
     # Git Bash completion
-    if [ -f /usr/share/bash_completion ]; then
+    if [[ -f /usr/share/bash_completion ]]; then
         source /usr/share/bash_completion
     fi
     GIT_PS1_SHOWDIRTYSTATE=true
-#    if [ -f /usr/share/git/completion/git-completion.bash ]; then
+#    if [[ -f /usr/share/git/completion/git-completion.bash ]]; then
 #        source /usr/share/git/completion/git-completion.bash
 #       bashgitprompt='$(__git_ps1 " (%s)")'
 #    fi
 
     # Python VirtualEnv wrapper
-    if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+    if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
         source /usr/bin/virtualenvwrapper.sh
     fi
     export PIP_REQUIRE_VIRTUALENV=true
@@ -100,9 +102,9 @@ fi
 ###
 
 # Add hostname if connected by SSH
-if [ ! -z "$SSH_CLIENT" ]; then ssh='\[\e[1m\]\[\033[38;5;254m\] \h\[$(tput sgr0)\]'; fi
+if [[ ! -z "$SSH_CLIENT" ]]; then ssh='\[\e[1m\]\[\033[38;5;254m\] \h\[$(tput sgr0)\]'; fi
 # Set user/root bash prompt
-if [ ${EUID} -eq 0 ]; then
+if [[ ${EUID} -eq 0 ]]; then
         # Red root prompt
         export PS1='\[$(tput sgr0)\]\[\033[38;5;3m\]\A\[$(tput sgr0)\] \[\033[38;5;9m\]\u'"$ssh"' \[$(tput sgr0)\]\w \[\033[38;5;9m\]\$ \[$(tput sgr0)\]'
 else
