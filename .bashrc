@@ -9,10 +9,11 @@
 
 eval $(uname -s)=true
 
+
+
 ###
 # ALIASES
 ###
-
 
 # Git
 # You must install Git first - ""
@@ -36,6 +37,7 @@ alias fuck='sudo $(fc -ln -1)'
 alias please='sudo -E'
 
 [[ "$Darwin" ]] && alias sleeplog='pmset -g log | grep -e " Sleep  " -e " Wake  "'
+
 
 
 ###
@@ -92,9 +94,9 @@ if [[ $Linux ]]; then
     export PIP_REQUIRE_VIRTUALENV=true
 fi
 
-
 # Homebrew API key
 #export HOMEBREW_GITHUB_API_TOKEN=""
+
 
 
 ###
@@ -113,10 +115,10 @@ else
 fi
 
 #Only do this if non-root
-if [[ $EUID -ne 0 && "$(hostname -s)" = "archon" ]]; then
-  if $(which wurtzisms > /dev/null 2>&1); then
-    echo "Wurtzism of the Day:"
-    echo
-    wurtzisms --instant
-  fi
-fi
+# if [[ $EUID -ne 0 && "$(hostname -s)" = "archon" ]]; then
+#   if $(which wurtzisms > /dev/null 2>&1); then
+#     echo "Wurtzism of the Day:"
+#     echo
+#     wurtzisms --instant
+#   fi
+# fi
