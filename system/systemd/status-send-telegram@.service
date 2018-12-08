@@ -1,0 +1,8 @@
+[Unit]
+Description=Send telegram message for %i to user
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/systemd-telegram "%i"
+User=root
+Group=systemd-journal
