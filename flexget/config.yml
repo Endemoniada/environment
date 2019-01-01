@@ -106,6 +106,10 @@ templates:
           quality: 1080p webdl|webrip
       #- The Expanse:
       #    quality: 1080p webdl|webrip
+      - The Good Place:
+          quality: 1080p webdl|webrip
+          season_packs: only
+          begin: s03e01
       - The Handmaid's Tale:
           quality: 1080p webdl|webrip
 #      - The Man in the High Castle:
