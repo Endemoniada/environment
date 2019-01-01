@@ -4,6 +4,13 @@
 variables: secrets.yml
 
 #====================
+#= Web UI
+#====================
+web_server:
+  run_v2: true
+  port: 9092
+
+#====================
 #= Templates
 #====================
 templates:
