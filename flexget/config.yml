@@ -60,6 +60,7 @@ templates:
       - Great News
       - "Happy!":
           quality: 1080p webdl|webrip
+          exact: yes
       - Homeland:
           quality: 1080p webdl|webrip
 #      - It's Always Sunny in Philadelphia
