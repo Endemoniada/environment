@@ -46,7 +46,7 @@ date
 echo
 
 # Backup the files using tar.
-tar czf $backup_destination/$archive_file --exclude=$exclude_files --exclude-caches-all $backup_files -C $backup_destination $pac_list
+tar czf $backup_destination/$archive_file $exclude_files --exclude-caches-all $backup_files -C $backup_destination $pac_list
 chmod 600 $backup_destination/$archive_file
 
 # Print end status message.
