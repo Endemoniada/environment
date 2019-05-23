@@ -7,6 +7,9 @@
 
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
+# Evaluate `uname -s` and set the result as the name of a variable with the value "true"
+# This way it's trivial to add checks for new systems. All you need to do is check the variable named
+# from the system descriptor.
 eval $(uname -s)=true
 
 
@@ -26,6 +29,9 @@ alias gf='git fetch'
 alias gl="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias gco='git checkout'
 alias grb='git rebase'
+
+# Python
+alias pyclean='find . -name "*.pyc" -delete'
 
 # Standard ls alises
 [[ "$Darwin" ]] && alias ls='ls -G' || alias ls='ls --color=auto'
