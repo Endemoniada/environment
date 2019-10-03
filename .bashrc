@@ -109,6 +109,8 @@ fi
 # PS1
 ###
 
+# Old prompt
+
 # # Add hostname if connected by SSH
 # if [[ ! -z "$SSH_CLIENT" ]]; then ssh='\[\e[1m\]\[\033[38;5;254m\] \h\[$(tput sgr0)\]'; fi
 # # Set user/root bash prompt
@@ -120,6 +122,7 @@ fi
 #         export PS1='\[$(tput sgr0)\]\[\033[38;5;3m\]\A\[$(tput sgr0)\] \[\033[38;5;10m\]\u'"$ssh"' \[$(tput sgr0)\]\w\[\e[1m\]\[\033[38;5;254m\]'"$bashgitprompt"'\[$(tput sgr0)\] \$ '
 # fi
 
+# PS1 prompt courtesy of Corey Schafer
 # Shell prompt based on the Solarized Dark theme.
 # Screenshot: http://i.imgur.com/EkEtphC.png
 # Heavily inspired by @necolas’s prompt: https://github.com/necolas/dotfiles
@@ -231,18 +234,8 @@ fi
 PS1+="\[${white}\] in ";
 PS1+="\[${green}\]\w"; # working directory
 PS1+="\$(prompt_git \"\[${white}\] on \[${blue}\]\" \"\[${blue}\]\")"; # Git repository details
-# PS1+="\n";
 PS1+=" \[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
 export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
-
-#Only do this if non-root
-# if [[ $EUID -ne 0 && "$(hostname -s)" = "archon" ]]; then
-#   if $(which wurtzisms > /dev/null 2>&1); then
-#     echo "Wurtzism of the Day:"
-#     echo
-#     wurtzisms --instant
-#   fi
-# fi
