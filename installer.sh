@@ -73,42 +73,42 @@ install_system_files() {
   fi
 }
 
-# Walk through and install user dotfiles in main directory
-echo
-echo "Do you want to install user dotfiles?"
-if [[ "$(ask Y)" == "Y" ]]; then
-  # Install regular dotfiles with custom handling where required
-  for file in $(ls -A "${source_dir}" | grep -E '^\.[^.]+' | grep -E -v '^\.git$'); do
-      if [ "${file}" == ".slate" ] || [ "${file}" == ".Brewfile" ]; then
-          if [ "${kernel}" != "Darwin" ]; then
-              continue
-          fi
-      fi
-
-      if [ "${file}" == ".gitignore" ]; then
-        continue
-      fi
-
-      if [ "${file}" == ".gitconfig" ]; then
-
-          if [ ! "${mail}" ]; then
-              echo "Enter git commit mail, followed by [ENTER];"
-              read -p "> " mail
-          fi
-
-          sed "s/%%PLACEHOLDER%%/${mail}/" "${source_dir}/${file}" > "${HOME}/${file}"
-          continue
-      fi
-
-      if [ -r "${HOME}/${file}" ]; then
-        echo -n "File exists, creating backup:  "
-        cp -va "${HOME}/${file}" "${HOME}/.orig${file}"
-      fi
-      echo -n "Installing file:               "
-      cp -v "${source_dir}/${file}" "${HOME}/"
-
-  done
-fi
+# # Walk through and install user dotfiles in main directory
+# echo
+# echo "Do you want to install user dotfiles?"
+# if [[ "$(ask Y)" == "Y" ]]; then
+#   # Install regular dotfiles with custom handling where required
+#   for file in $(ls -A "${source_dir}" | grep -E '^\.[^.]+' | grep -E -v '^\.git$'); do
+#       if [ "${file}" == ".slate" ] || [ "${file}" == ".Brewfile" ]; then
+#           if [ "${kernel}" != "Darwin" ]; then
+#               continue
+#           fi
+#       fi
+#
+#       if [ "${file}" == ".gitignore" ]; then
+#         continue
+#       fi
+#
+#       if [ "${file}" == ".gitconfig" ]; then
+#
+#           if [ ! "${mail}" ]; then
+#               echo "Enter git commit mail, followed by [ENTER];"
+#               read -p "> " mail
+#           fi
+#
+#           sed "s/%%PLACEHOLDER%%/${mail}/" "${source_dir}/${file}" > "${HOME}/${file}"
+#           continue
+#       fi
+#
+#       if [ -r "${HOME}/${file}" ]; then
+#         echo -n "File exists, creating backup:  "
+#         cp -va "${HOME}/${file}" "${HOME}/.orig${file}"
+#       fi
+#       echo -n "Installing file:               "
+#       cp -v "${source_dir}/${file}" "${HOME}/"
+#
+#   done
+# fi
 
 # Install system files in /system/ directory
 if [[ "$(hostname)" == "archivist" || "$(hostname)" == "archon" ]]; then
