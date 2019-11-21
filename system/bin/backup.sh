@@ -22,7 +22,7 @@ if [[ -r $backup_conf ]]; then
 else
   echo "Could not find /etc/backup.sh.conf. Using default settings..."
   backup_files="/home /etc /root /opt"
-  exclude_files="*/.cache"
+  exclude_opts=""
 fi
 
 if [[ ! -d $backup_destination ]]; then
@@ -46,7 +46,7 @@ date
 echo
 
 # Backup the files using tar.
-tar czf $backup_destination/$archive_file $exclude_files --exclude-caches-all $backup_files -C $backup_destination $pac_list
+tar czf $backup_destination/$archive_file $exclude_opts --exclude-caches $backup_files -C $backup_destination $pac_list
 chmod 600 $backup_destination/$archive_file
 
 # Print end status message.
