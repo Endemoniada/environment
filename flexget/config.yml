@@ -33,104 +33,99 @@ templates:
   #= Template: TV-Shows
   #====================
   tvshows:
-    quality: 720p+ webrip+ h264
+    quality: 1080p+ webrip+ h264+
+    # For 2.18.0
+    sort_by:
+      field: quality
+      reverse: yes
     #trakt_lookup: yes
     thetvdb_lookup: yes
     set:
       path: '/Alexandria/TV-Series/{{series_name}}/Season {{series_season}}'
       propers: yes
     series:
-      - 2 Broke Girls
-      - American Gods:
-          quality: webdl
       #- Archer:
-      #    quality: 1080p webdl|webrip
+      #    quality: webdl|webrip
       - Atlanta:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Barry:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Brooklyn Nine-Nine:
-          quality: 1080p webdl|webrip
-      - Community
+          quality: webdl|webrip
       - Counterpart:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Divorce (2016):
-          quality: 1080p webdl|webrip
-      - Elementary:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
 #      - Fargo:
-#          quality: 1080p webdl|webrip
-      - Game of Thrones:
-          quality: 1080p webdl|webrip
-      - Gotham:
-          quality: 1080p webdl|webrip
-      - Great News
+#          quality: webdl|webrip
       - "Happy!":
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
           exact: yes
       - Homeland:
-          quality: 1080p webdl|webrip
-#      - It's Always Sunny in Philadelphia
+          quality: webdl|webrip
+      - "Its Always Sunny in Philadelphia":
+          alternate_name: "It's Always Sunny in Philadelphia"
+          quality: webdl|webrip
       - Kidding:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Last Week Tonight with John Oliver:
           identified_by: ep
-      - The Late Show with Stephen Colbert
+      #- The Late Show with Stephen Colbert
       - Legion:
-          quality: 1080p webdl|webrip
-      - Louie:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - "Marvel's Agents of S.H.I.E.L.D.":
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Modern Family:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - "Mr. Robot":
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - My Little Pony:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Once Upon A Time (2011):
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
+      - Rick and Morty:
+          quality: webdl|webrip
       - Saturday Night Live:
-          quality: 1080p webdl|webrip
-      - Sharp Objects:
-          quality: 1080p webdl|webrip
-          season_packs: only
+          quality: 720p+ webdl|webrip
       - Silicon Valley:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - Suits:
-          quality: 1080p webdl|webrip
-      - The Big Bang Theory:
-          quality: 1080p webdl|webrip
-      - The Daily Show (with Trevor Noah)
+          quality: webdl|webrip
+      - Swamp Thing:
+          quality: webdl|webrip
+      #- The Daily Show (with Trevor Noah)
       - The Deuce:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       #- The Expanse:
-      #    quality: 1080p webdl|webrip
+      #    quality: webdl|webrip
       - The Good Place:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
           season_packs: only
           begin: s03e01
       - The Handmaid's Tale:
-          quality: 1080p webdl|webrip
-#      - The Man in the High Castle:
-#          quality: 1080p webdl|webrip
+          quality: webdl|webrip
+      - The Mandalorian:
+          quality: 2160p webdl|webrip
       - The Last Ship:
-          quality: 1080p webdl|webrip
-      - The Tick
-      - The X-Files:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
+      - The Terror:
+          quality: webdl|webrip
       - True Detective:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
+      - Watchmen:
+          quality: webdl|webrip
       - Westworld:
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
       - "Who Is America?":
-          quality: 1080p webdl|webrip
+          quality: webdl|webrip
 
   #====================
   #= Template: Movies
   #====================
   movies:
     quality: 1080p+ bluray h264+
+    upgrade:
+      timeframe: 4 weeks
     proper_movies: no
     imdb_lookup: yes
     tmdb_lookup: yes
@@ -206,7 +201,8 @@ tasks:
   #====================
   tvshows-hdbits:
     priority: 10
-    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6'
+    #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6'
+    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=2c1c3&cats[]=2c1c6&cats[]=2c5c3&cats[]=2c5c6'
 
     exec:
       on_start:
@@ -227,7 +223,8 @@ tasks:
   movies-hdbits:
     priority: 30
 
-    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
+    #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
+    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3&cats[]=1c5c6&type_origin=1'
 
     exec:
       on_start:
