@@ -125,9 +125,9 @@ templates:
   #= Template: Movies
   #====================
   movies:
-    quality: 1080p+ bluray h264+
-    upgrade:
-      timeframe: 4 weeks
+    quality:
+      - 2160p remux|bluray h265+
+      - 1080p bluray h264+
     proper_movies: no
     imdb_lookup: yes
     tmdb_lookup: yes
@@ -226,7 +226,8 @@ tasks:
     priority: 30
 
     #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
-    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3&cats[]=1c5c6&type_origin=1'
+    #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3&cats[]=1c5c6&type_origin=1'
+    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&type_origin=1&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3&cats[]=1c5c5'
 
     exec:
       on_start:
@@ -240,8 +241,10 @@ tasks:
     list_match:
       from:
         - movie_list: movies
-    list_add:
-      - movie_list: 4k-upgrade
+    if:
+      - "'2160p' not in quality":
+          list_add:
+            - movie_list: 4k-upgrade
 
     template:
       - movies
