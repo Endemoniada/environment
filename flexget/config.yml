@@ -314,6 +314,30 @@ tasks:
     accept_all: yes
     no_entries_ok: yes
 
+  #====================
+  #= Task: Remove movies from movie list
+  #====================
+  prune-imdb:
+    priority: 19
+
+    exec:
+      on_start:
+        phase: echo "$(date +'%d/%m %T') - executing task - Prune movie list" >> ~/runlog
+      on_output:
+        for_accepted: echo "- Removed '{{title}}' from list" >> ~/runlog
+
+    movie_list: movies
+    crossmatch:
+      from:
+        - imdb_watchlist:
+            user_id: ur5604227
+            list: watchlist
+      action: reject
+      fields: [imdb_id]
+    accept_all: yes
+    list_remove:
+      - movie_list: movies
+    seen: no
 
   #====================
   #= Task: Queue movies from IMDB watchlist
@@ -353,18 +377,23 @@ tasks:
 #= Schedules
 #====================
 schedules:
-  - tasks: 'tvshows-hdbits*'
+  - tasks:
+      - 'tvshows-hdbits*'
     interval:
       hours: 1
-  - tasks: 'movies-hdbits*'
+  - tasks:
+      - 'movies-hdbits*'
     interval:
       hours: 1
-  - tasks: 'movies-hdbits-wishlist'
+  - tasks:
+      - 'movies-hdbits-wishlist'
     interval:
       hours: 1
-  - tasks: 'queue-imdb'
-#    interval:
-#      hours: 24
-    schedule:
-      hour: 18
-      minute: 30
+  - tasks:
+      - 'queue-imdb'
+      - 'prune-imdb'
+    interval:
+      hours: 2
+#    schedule:
+#      hour: 18
+#      minute: 30
