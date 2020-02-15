@@ -379,21 +379,8 @@ tasks:
 schedules:
   - tasks:
       - 'tvshows-hdbits*'
-    interval:
-      hours: 1
-  - tasks:
       - 'movies-hdbits*'
-    interval:
-      hours: 1
-  - tasks:
-      - 'movies-hdbits-wishlist'
-    interval:
-      hours: 1
-  - tasks:
       - 'queue-imdb'
       - 'prune-imdb'
     interval:
-      hours: 2
-#    schedule:
-#      hour: 18
-#      minute: 30
+      hours: 1
