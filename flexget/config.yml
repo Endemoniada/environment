@@ -56,8 +56,6 @@ templates:
           quality: webdl|webrip
       - Divorce (2016):
           quality: webdl|webrip
-#      - Fargo:
-#          quality: webdl|webrip
       - "Happy!":
           quality: webdl|webrip
           exact: yes
@@ -70,49 +68,25 @@ templates:
           quality: webdl|webrip
       - Last Week Tonight with John Oliver:
           identified_by: ep
-      #- The Late Show with Stephen Colbert
-      - Legion:
-          quality: webdl|webrip
       - "Marvel's Agents of S.H.I.E.L.D.":
           quality: webdl|webrip
       - Modern Family:
           quality: webdl|webrip
-      - "Mr. Robot":
-          quality: webdl|webrip
       - My Little Pony:
-          quality: webdl|webrip
-      - Once Upon A Time (2011):
           quality: webdl|webrip
       - Rick and Morty:
           quality: webdl|webrip
       - Saturday Night Live:
           quality: 720p+ webdl|webrip
-      - Silicon Valley:
-          quality: webdl|webrip
-      - Suits:
-          quality: webdl|webrip
-      - Swamp Thing:
-          quality: webdl|webrip
-      #- The Daily Show (with Trevor Noah)
-      - The Deuce:
-          quality: webdl|webrip
-      #- The Expanse:
-      #    quality: webdl|webrip
-      - The Good Place:
-          quality: webdl|webrip
-          season_packs: only
-          begin: s03e01
       - The Handmaid's Tale:
           quality: webdl|webrip
       - The Mandalorian:
           quality: 2160p webdl|webrip
-      - The Last Ship:
-          quality: webdl|webrip
       - The Outsider:
           quality: webdl|webrip
       - The Terror:
           quality: webdl|webrip
-      - True Detective:
+      - 'True Detective':
           quality: webdl|webrip
       - Watchmen:
           quality: webdl|webrip
