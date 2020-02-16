@@ -165,7 +165,7 @@ tasks:
   #====================
   tvshows-hdbits:
     priority: 20
-    #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=3c1c6&cats[]=1c1c3&cats[]=2c1c3&cats[]=2c1c6'
+    # 1080p encode/webdl, 4k encode/webdl, all sources
     rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=2c1c3&cats[]=2c1c6&cats[]=2c5c3&cats[]=2c5c6'
 
     exec:
@@ -187,9 +187,11 @@ tasks:
   movies-hdbits:
     priority: 30
 
-    #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=3c1c3&cats[]=1c1c3&type_origin=1'
-    #rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3&cats[]=1c5c6&type_origin=1'
-    rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&type_origin=1&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3&cats[]=1c5c5'
+    inputs:
+        # 4K Remux, all sources
+      - rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c5c5'
+        # 1080p encode/webdl, 4k encode, internal only
+      - rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&type_origin=1&cats[]=1c1c3&cats[]=1c1c6&cats[]=1c5c3'
 
     exec:
       on_start:
@@ -219,6 +221,7 @@ tasks:
   movies-hdbits-4k-upgrade:
     priority: 31
 
+    # 4K encode/remux, internal only
     rss: 'https://hdbits.org/rss/feed?passkey={? hdbits.passkey ?}&feed=dl&cats[]=1c5c3&cats[]=1c5c5&type_origin=1'
 
     exec:
