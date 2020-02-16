@@ -112,18 +112,6 @@ templates:
       reject:
         - \b3-?D\b: {from: title}                             # Reject 3D versions
 
-  #====================
-  #= Template: Sports
-  #====================
-  sports:
-    quality: 720p+ hdtv+ h264
-    set:
-      path: '/Users/martin/Movies/Sports'
-    regexp:
-      accept:
-        - NFL.*(2014|2015).*(Giants|Jets)
-      from: title
-
   #============================
   #= Template: Telegram Message
   #============================
