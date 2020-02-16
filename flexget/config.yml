@@ -214,7 +214,7 @@ tasks:
       - telegram_msg
 
   #====================
-  #= Task: Movies from HDBits.org
+  #= Task: 4K upgrades from HDBits.org
   #====================
   movies-hdbits-4k-upgrade:
     priority: 31
@@ -250,7 +250,6 @@ tasks:
   movies-hdbits-wishlist:
     priority: 32
 
-#    rss: https://hdbits.org/rss/wishlist?passkey={{ s{ecrets.hdbits.passkey }}
     rss: 'https://hdbits.org/rss/my?passkey={? hdbits.passkey ?}'
 
     exec:
@@ -312,13 +311,6 @@ tasks:
         phase: echo "$(date +'%d/%m %T') - executing task - Queue IMDB Watchlist" >> ~/runlog
       on_output:
         for_accepted: echo "+ Added '{{title}}' to queue" >> ~/runlog
-
-#    imdb_list:
-#      user_id: ur5604227
-#      list: watchlist
-#      login: '{? imdb.username ?}'
-#      password: '{? imdb.password ?}'
-#      list: watchlist
 
     imdb_watchlist:
       user_id: ur5604227
