@@ -31,7 +31,7 @@ fi
 
 #First, perform some cleanup
 echo "Performing cleanup of backups > 8 weeks old"
-find $backup_destination -maxdepth 1 -type f -mtime +56 \( -name '*.tar.gz' -o -name '*.list' \) -exec rm -v {} \;
+find $backup_destination -maxdepth 1 -type f -mtime +56 \( -name "${hostname}-*.tar.gz" -o -name "${hostname}-*.list" \) -exec rm -v {} \;
 
 # Create list of installed packages
 pac_list="${hostname}-${date}-installed_packages.list"
