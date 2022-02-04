@@ -8,7 +8,9 @@ variables: secrets.yml
 #====================
 web_server:
   #run_v2: true
-  port: 9092
+  bind: 0.0.0.0
+  port: 9093
+  web_ui: yes
 
 #====================
 #= Templates
@@ -23,7 +25,8 @@ templates:
   #====================
   transmission:
     transmission:
-      host: localhost
+      #      host: localhost
+      host: transmission
       port: 9091
       #username: {? transmission.username ?}
       #password: {? transmission.password ?}
@@ -44,22 +47,24 @@ templates:
       path: '/Alexandria/TV-Series/{{series_name}}/Season {{series_season}}'
       propers: yes
     series:
-      #- Archer:
-      #    quality: webdl|webrip
       - Atlanta:
           quality: webdl|webrip
       - Barry:
           quality: webdl|webrip
-      - Brooklyn Nine-Nine:
+      - Black Monday:
+          begin: S02E01
           quality: webdl|webrip
-      - Counterpart:
+          season_packs: only
+      - Devs:
           quality: webdl|webrip
       - Divorce (2016):
+          quality: webdl|webrip
+      - Halo:
           quality: webdl|webrip
       - "Happy!":
           quality: webdl|webrip
           exact: yes
-      - Homeland:
+      - How I Met Your Father:
           quality: webdl|webrip
       - "Its Always Sunny in Philadelphia":
           alternate_name: "It's Always Sunny in Philadelphia"
@@ -68,9 +73,7 @@ templates:
           quality: webdl|webrip
       - Last Week Tonight with John Oliver:
           identified_by: ep
-      - "Marvel's Agents of S.H.I.E.L.D.":
-          quality: webdl|webrip
-      - Modern Family:
+      - Mrs America:
           quality: webdl|webrip
       - My Little Pony:
           quality: webdl|webrip
@@ -80,10 +83,8 @@ templates:
           quality: 720p+ webdl|webrip
       - The Handmaid's Tale:
           quality: webdl|webrip
-      - The Mandalorian:
-          quality: 2160p webdl|webrip
-      - The Outsider:
-          quality: webdl|webrip
+      #- The Mandalorian:
+      #    quality: 2160p webdl|webrip
       - The Terror:
           quality: webdl|webrip
       - 'True Detective':
@@ -273,8 +274,8 @@ tasks:
     disable:
       - seen
       - seen_info_hash
-      - rejected
-      - remember_rejected
+        #- rejected
+        #- remember_rejected
     accept_all: yes
     no_entries_ok: yes
 
