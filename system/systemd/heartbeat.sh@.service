@@ -1,0 +1,10 @@
+[Unit]
+Description=Check heartbeat for host %i
+Wants=heartbeat.sh.timer
+#OnFailure=status-email-user@%n.service status-send-telegram@%n.service
+OnFailure=status-email-user@%n.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/local/bin/heartbeat.sh %i 4

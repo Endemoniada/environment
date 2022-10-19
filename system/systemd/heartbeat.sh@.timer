@@ -1,0 +1,10 @@
+[Unit]
+Description=Run heartbeat every minute for host %i
+
+[Timer]
+Unit=heartbeat.sh@%i.service
+OnCalendar=*-*-* *:*:10
+Persistent=False
+
+[Install]
+WantedBy=timers.target
